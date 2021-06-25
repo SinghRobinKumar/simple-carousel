@@ -14,11 +14,11 @@ const App = () => {
         marginTop: 64,
       }}
     >
-      <h1>Simple Carousel</h1>
+      <h1 style={{ paddingBottom: "20px" }}>Simple Carousel</h1>
       {width < 520 && <Carousel show={1} />}
       {width > 520 && width < 850 && <Carousel show={2} />}
-      {width > 850 && width < 1300 && <Carousel show={3} />}
-      {width > 1300 && <Carousel show={4} />}
+      {width > 850 && width < 1600 && <Carousel show={3} />}
+      {width > 1600 && <Carousel show={4} />}
     </div>
   );
 };
