@@ -1,0 +1,12 @@
+.card-image {
+  width: 200px;
+  height: 200px;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%);
+}
+
+.card-body {
+  position: relative;
+  margin-top: 210px;
+}
