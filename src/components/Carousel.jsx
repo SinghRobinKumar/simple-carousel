@@ -4,7 +4,7 @@ import Card from "./Card";
 import Data from "./Data";
 
 const Carousel = props => {
-  const [show, setShow] = useState(props.show);
+  const [show] = useState(props.show);
   const [posts, setPosts] = useState();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showing, setShowing] = useState(1);
@@ -85,7 +85,7 @@ const Carousel = props => {
       setCurrentIndex(prevState => prevState - 0.5);
       setTimeout(() => {
         setCurrentIndex(prevState => prevState + 0.5);
-      }, 100);
+      }, 120);
     }
   };
 
