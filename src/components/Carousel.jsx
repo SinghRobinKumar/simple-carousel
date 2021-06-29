@@ -3,18 +3,45 @@ import "./css/carousel.css";
 import Card from "./Card";
 import Data from "./Data";
 
-const Carousel = (props) => {
-  const [show] = useState(props.show);
+const Carousel = props => {
+  const [show, setShow] = useState(props.show);
   const [posts, setPosts] = useState();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showing, setShowing] = useState(1);
   const [nextShow, setNextShow] = useState(show);
   const [length, setLength] = useState();
+  const [touchPosition, setTouchPosition] = useState(null);
 
   React.useEffect(() => {
     setPosts(Data);
     setLength(Data.length);
   }, []);
+
+  const handleTouchStart = e => {
+    const touchDown = e.touches[0].clientX;
+    setTouchPosition(touchDown);
+  };
+
+  const handleTouchMove = e => {
+    const touchDown = touchPosition;
+
+    if (touchDown === null) {
+      return;
+    }
+
+    const currentTouch = e.touches[0].clientX;
+    const diff = touchDown - currentTouch;
+
+    if (diff > 5) {
+      next();
+    }
+
+    if (diff < -5) {
+      prev();
+    }
+
+    setTouchPosition(null);
+  };
 
   const buttons = () => {
     return (
@@ -38,18 +65,28 @@ const Carousel = (props) => {
 
   const next = () => {
     if (currentIndex < length - show) {
-      setCurrentIndex((prevState) => prevState + 1);
+      setCurrentIndex(prevState => prevState + 1);
+      setShowing(showing + 1);
+      setNextShow(nextShow + 1);
+    } else {
+      setCurrentIndex(prevState => prevState + 0.5);
+      setTimeout(() => {
+        setCurrentIndex(prevState => prevState - 0.5);
+      }, 100);
     }
-    setShowing(showing + 1);
-    setNextShow(nextShow + 1);
   };
 
   const prev = () => {
     if (currentIndex > 0) {
-      setCurrentIndex((prevState) => prevState - 1);
+      setCurrentIndex(prevState => prevState - 1);
+      setShowing(showing - 1);
+      setNextShow(nextShow - 1);
+    } else {
+      setCurrentIndex(prevState => prevState - 1);
+      setTimeout(() => {
+        setCurrentIndex(prevState => prevState + 0.5);
+      }, 100);
     }
-    setShowing(showing - 1);
-    setNextShow(nextShow - 1);
   };
 
   if (!posts) {
@@ -59,7 +96,11 @@ const Carousel = (props) => {
   return (
     <div className="carousel-container container">
       <div className="carousel-wrapper">
-        <div className="carousel-content-wrapper">
+        <div
+          className="carousel-content-wrapper"
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+        >
           <div
             className={`carousel-content show-${show}`}
             style={{
@@ -69,7 +110,7 @@ const Carousel = (props) => {
             <Card posts={posts} />
           </div>
         </div>
-      </div>{" "}
+      </div>
       {buttons()}
     </div>
   );

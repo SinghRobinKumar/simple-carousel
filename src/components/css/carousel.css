@@ -28,7 +28,7 @@
 
 .content {
   scroll-snap-align: center;
-  cursor: pointer;
+  cursor: move;
   padding: 30px;
 }
 .card {
