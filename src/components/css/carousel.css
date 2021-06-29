@@ -28,8 +28,8 @@
 
 .content {
   scroll-snap-align: center;
-  cursor: move;
   padding: 30px;
+  cursor: pointer;
 }
 .card {
   border: none;
