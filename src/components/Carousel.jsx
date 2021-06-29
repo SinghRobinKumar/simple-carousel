@@ -90,7 +90,7 @@ const Carousel = props => {
   };
 
   if (!posts) {
-    return <div>Loading...</div>;
+    return <React.Fragment>Loading...</React.Fragment>;
   }
 
   return (
