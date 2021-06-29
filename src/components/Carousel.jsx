@@ -72,7 +72,7 @@ const Carousel = props => {
       setCurrentIndex(prevState => prevState + 0.5);
       setTimeout(() => {
         setCurrentIndex(prevState => prevState - 0.5);
-      }, 100);
+      }, 120);
     }
   };
 
